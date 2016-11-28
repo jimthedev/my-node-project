@@ -3,7 +3,8 @@ var App = React.createClass({
   // Set the initial state so that it is not 'null', which causes :(
   getInitialState: function() {
     return {
-      query: ''
+      query: '',
+      isOpen: true
     }
   },
   style: {
@@ -22,6 +23,13 @@ var App = React.createClass({
   onSearchButtonClick: function() { // Button click handler
     console.log('You searched for ', this.state.query);
   },
+  onToggleButtonClick: function() {
+    console.log('toggle was clicked');
+    this.setState({
+      isOpen: !this.state.isOpen
+    });
+
+  },
   isIndexMatch: function(item) { // Search function
     return item.indexOf(this.state.query) > -1;
   },
@@ -38,6 +46,9 @@ var App = React.createClass({
             onChange={this.onNewSearchValue.bind(this)} />
           <button
             onClick={this.onSearchButtonClick}>Search</button>
+          <button
+            onClick={this.onToggleButtonClick}>Open or close dealership</button>
+          <span style={{color: this.state.isOpen ? 'green' : 'red' }}>The dealership is currently {this.state.isOpen ? 'open' : 'closed'}</span>
         </div>
         <Lot title="Outdoor Lot" inventory={
           this.props.inventory
